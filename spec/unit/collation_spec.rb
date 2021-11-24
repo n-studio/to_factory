@@ -23,10 +23,10 @@ describe ToFactory::Collation do
   end
 
   context "organizing" do
-    let(:root) { ToFactory::Representation.new(:root, "super_admin", "  Factory.define(:root, :parent => :\"to_factory/user\") do|o|\n  o.birthday \"2014-07-08T15:30Z\"\n  o.email \"test@example.com\"\n  o.name \"Jeff\"\n  o.some_id 8\n  end\n") }
-    let(:user) { ToFactory::Representation.new("to_factory/user", nil, "Factory.define(:\"to_factory/user\") { |o| o.name(\"User\") }") }
-    let(:admin) { ToFactory::Representation.new("admin", "to_factory/user", "Factory.define(:admin, :parent => :\"to_factory/user\") { |o| o.name(\"Admin\") }") }
-    let(:super_admin) { ToFactory::Representation.new("super_admin", "admin", "Factory.define(:super_admin, :parent => :admin) { |o| o.name(\"Super Admin\") }") }
+    let(:root) { ToFactory::Representation.new(:root, "super_admin", "  Factory.define :root, parent: :\"to_factory/user\" do|o|\n  o.birthday \"2014-07-08T15:30Z\"\n  o.email \"test@example.com\"\n  o.name \"Jeff\"\n  o.some_id 8\n  end\n") }
+    let(:user) { ToFactory::Representation.new("to_factory/user", nil, "Factory.define :\"to_factory/user\" { |o| o.name(\"User\") }") }
+    let(:admin) { ToFactory::Representation.new("admin", "to_factory/user", "Factory.define :admin, parent: :\"to_factory/user\") { |o| o.name(\"Admin\") }") }
+    let(:super_admin) { ToFactory::Representation.new("super_admin", "admin", "Factory.define :super_admin, parent: :admin { |o| o.name(\"Super Admin\") }") }
 
     it do
       new_definitions = [root]

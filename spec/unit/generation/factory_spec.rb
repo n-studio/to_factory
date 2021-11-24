@@ -42,7 +42,7 @@ describe ToFactory::Generation::Factory do
   describe "#header" do
     it do
       expect(generator.header {}).to match_sexp <<-eof.strip_heredoc
-        factory(:"to_factory/user") do
+        factory :"to_factory/user" do
         end
       eof
     end

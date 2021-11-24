@@ -8,7 +8,7 @@ describe ToFactory::Parsing::File do
     let(:dynamic_content) do
       <<-RUBY
         [ 0, 1, 2, 3, 4].each do |i|
-          Factory.define(:"user_\#{i}", :parent => :"to_factory/user") do |o|
+          Factory.define :"user_\#{i}", parent: :"to_factory/user" do |o|
             p.project_statuses = statuses
           end
         end

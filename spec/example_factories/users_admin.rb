@@ -1,4 +1,4 @@
-factory(:"to_factory/user") do
+factory :"to_factory/user" do
   birthday { "2014-07-08T15:30 UTC" }
   email { "test@example.com" }
   name { "Jeff" }
@@ -6,7 +6,7 @@ factory(:"to_factory/user") do
   some_id { 8 }
 end
 
-factory(:admin, parent: :"to_factory/user") do
+factory :admin, parent: :"to_factory/user" do
   birthday { "2014-07-08T15:30 UTC" }
   email { "admin@example.com" }
   name { "Admin" }

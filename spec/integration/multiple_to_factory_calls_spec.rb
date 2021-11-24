@@ -35,7 +35,7 @@ describe ToFactory do
             some_id { 8 }
           end
 
-          factory(:user_2, :parent => :"to_factory/user") do
+          factory :user_2, parent: :"to_factory/user" do
             birthday { "2014-07-08T15:30 UTC" }
             email { "test@example.com" }
             name { "Jeff" }
@@ -58,7 +58,7 @@ describe ToFactory do
     it "renders multiple factories correctly" do
       expect(users_file).to match_sexp <<-FACTORY
        FactoryBot.define do
-         factory(:"to_factory/user") do
+         factory :"to_factory/user" do
            birthday { "2014-07-08T15:30 UTC" }
            email { "test@example.com" }
            name { "Jeff" }
@@ -66,7 +66,7 @@ describe ToFactory do
            some_id { 8 }
          end
 
-         factory(:user_2, :parent => :"to_factory/user") do
+         factory :user_2, parent: :"to_factory/user" do
            birthday { "2014-07-08T15:30 UTC" }
            email { "test@example.com" }
            name { "Jeff" }
@@ -74,7 +74,7 @@ describe ToFactory do
            some_id { 8 }
          end
 
-         factory(:user_3, :parent => :"to_factory/user") do
+         factory :user_3, parent: :"to_factory/user" do
            birthday { "2014-07-08T15:30 UTC" }
            email { "test@example.com" }
            name { "Jeff" }
@@ -82,7 +82,7 @@ describe ToFactory do
            some_id { 8 }
          end
 
-         factory(:user_4, :parent => :"to_factory/user") do
+         factory :user_4, parent: :"to_factory/user" do
            birthday { "2014-07-08T15:30 UTC" }
            email { "test@example.com" }
            name { "Jeff" }

@@ -78,7 +78,7 @@ ToFactory User.last
 
 #writes to spec/factories/users.rb
 FactoryBot.define
-  factory(:user) do |u|
+  factory :user do |u|
     email { "test@example.com" }
     name { "Mike" }
   end

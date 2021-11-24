@@ -117,9 +117,9 @@ describe ToFactory do
 
       context "with a name for the factory" do
         it "appends to the file" do
-          users_file_includes('factory(:"to_factory/user"')
+          users_file_includes('factory :"to_factory/user"')
           ToFactory(specific_user: user)
-          users_file_includes('factory(:specific_user, :parent => :"to_factory/user"')
+          users_file_includes('factory :specific_user, parent: :"to_factory/user"')
         end
       end
 
