@@ -16,7 +16,7 @@ module ToFactory::DataCreation
     ToFactory::User.create(
       name: "Jeff",
       email: "test@example.com",
-      some_attributes: { a: 1 },
+      some_attributes: { :a => 1 },
       some_id: 8,
       birthday: birthday
     )
@@ -26,7 +26,7 @@ module ToFactory::DataCreation
     ToFactory::User.create(
       name: "Admin",
       email: "admin@example.com",
-      some_attributes: { a: 1 },
+      some_attributes: { :a => 1 },
       some_id: 9,
       birthday: birthday
     )

@@ -1,4 +1,4 @@
-class AddSerializedAttributesToUsers < ActiveRecord::Migration
+class AddSerializedAttributesToUsers < ActiveRecord::Migration[4.2]
   def self.up
     add_column :users, :some_attributes, :text
   end

@@ -9,16 +9,12 @@ module ToFactory
       end
 
       def to_s
-        setter = "#{@attribute}#{inspect_value(@value)}"
+        setter = "#{@attribute} { #{inspect_value(@value)} }"
         "    #{setter}"
       end
 
       def inspect_value(value, nested = false)
-        formatted = format(value, nested)
-
-        formatted = " #{formatted}" if !value.is_a?(Hash) && !nested
-
-        formatted
+        format(value, nested)
       end
 
       def format(value, nested = false)
@@ -28,7 +24,7 @@ module ToFactory
         when Date
           value.to_s.inspect
         when BigDecimal
-          "BigDecimal.new(#{value.to_s.inspect})"
+          "BigDecimal(#{value.to_s.inspect})"
         when Hash
           inspect_hash(value, nested)
         when Array
@@ -70,7 +66,7 @@ module ToFactory
         if nested
           "{#{formatted}}"
         else
-          "({#{formatted}})"
+          "{ #{formatted} }"
         end
       end
 

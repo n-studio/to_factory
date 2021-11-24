@@ -11,13 +11,13 @@ namespace :spec do
   desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
   task :migrate_db do
     setup_db
-    ActiveRecord::Migrator.migrate("spec/db/migrate")
+    ActiveRecord::MigrationContext.new("spec/db/migrate", ActiveRecord::SchemaMigration).migrate
   end
 
   desc "Migrate down"
   task :migrate_down do
     setup_db
-    ActiveRecord::Migrator.down("spec/db/migrate")
+    ActiveRecord::MigrationContext.new("spec/db/migrate", ActiveRecord::SchemaMigration).down
   end
 end
 
