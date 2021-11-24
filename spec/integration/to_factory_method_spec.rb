@@ -2,20 +2,20 @@ describe ToFactory do
   let!(:user)    { create_user! }
   let!(:project) { create_project! }
 
-  def user_file
-    File.read("./tmp/factories/to_factory/user.rb")
+  def users_file
+    File.read("./tmp/factories/to_factory/users.rb")
   rescue
     nil
   end
 
-  def project_file
-    File.read("./tmp/factories/to_factory/project.rb")
+  def projects_file
+    File.read("./tmp/factories/to_factory/projects.rb")
   rescue
     nil
   end
 
-  let(:expected_user_file) { File.read "./spec/example_factories/user_with_header.rb" }
-  let(:expected_project_file) { File.read "./spec/example_factories/project_with_header.rb" }
+  let(:expected_users_file) { File.read "./spec/example_factories/users_with_header.rb" }
+  let(:expected_projects_file) { File.read "./spec/example_factories/projects_with_header.rb" }
 
   describe "ToFactory.definitions" do
     it do
@@ -25,14 +25,14 @@ describe ToFactory do
   end
 
   describe "ToFactory.definition_for" do
-    let(:expected_user_file) { File.read "./spec/example_factories/user.rb" }
+    let(:expected_users_file) { File.read "./spec/example_factories/users.rb" }
     it do
-      expect(ToFactory.definition_for user).to match_sexp expected_user_file
+      expect(ToFactory.definition_for user).to match_sexp expected_users_file
     end
 
     it do
       ToFactory(user)
-      expect(ToFactory.definition_for :"to_factory/user").to match_sexp expected_user_file
+      expect(ToFactory.definition_for :"to_factory/user").to match_sexp expected_users_file
     end
 
     it "raises a not found error" do
@@ -42,16 +42,16 @@ describe ToFactory do
 
   describe "Object#ToFactory" do
     context "with multiple levels of parent classes" do
-      let(:filename) { "spec/example_factories/#{'user_admin_super_admin'}.rb" }
+      let(:filename) { "spec/example_factories/#{'users_admin_super_admin'}.rb" }
 
       it "gets the output order correct" do
-        output = "./tmp/factories/to_factory/user.rb"
+        output = "./tmp/factories/to_factory/users.rb"
         `mkdir -p ./tmp/factories/to_factory`
         `cp #{filename} #{output}`
 
         ToFactory(root: user)
 
-        expected = File.read "spec/example_factories/#{'user_admin_root'}.rb"
+        expected = File.read "spec/example_factories/#{'users_admin_root'}.rb"
 
         # user, admin, super_admin, root
         expect(File.read(output)).to match_sexp expected
@@ -61,16 +61,16 @@ describe ToFactory do
     it "generates all factories" do
       ToFactory()
       # simple check for equivalent ruby
-      expect(user_file)   .to match_sexp expected_user_file
-      expect(project_file).to match_sexp expected_project_file
+      expect(users_file)   .to match_sexp expected_users_file
+      expect(projects_file).to match_sexp expected_projects_file
 
       # once we are sure output is equivalent ruby, check output is identical
-      expect(user_file.chomp)   .to eq expected_user_file.chomp
-      expect(project_file.chomp).to eq expected_project_file.chomp
+      expect(users_file.chomp)   .to eq expected_users_file.chomp
+      expect(projects_file.chomp).to eq expected_projects_file.chomp
     end
 
-    def user_file_includes(content)
-      expect(user_file).to include content
+    def users_file_includes(content)
+      expect(users_file).to include content
     end
 
     context "excluding classes" do
@@ -81,45 +81,45 @@ describe ToFactory do
 
       it "ignores specified classes" do
         ToFactory(exclude: ToFactory::User)
-        expect(user_file).to be_nil
-        expect(project_file).to be_present
+        expect(users_file).to be_nil
+        expect(projects_file).to be_present
       end
 
       it "ignores specified classes - sanity check" do
         ToFactory(exclude: ToFactory::Project)
-        expect(user_file).to be_present
-        expect(project_file).to be_nil
+        expect(users_file).to be_present
+        expect(projects_file).to be_nil
       end
     end
 
     context "with no existing file" do
       it "creates the file" do
-        expect(user_file).to be_nil
+        expect(users_file).to be_nil
         ToFactory(user)
-        expect(user_file).to be_present
+        expect(users_file).to be_present
       end
 
       context "with single ActiveRecord::Base instance argument" do
         it "creates the file" do
-          expect(user_file).to be_nil
+          expect(users_file).to be_nil
           ToFactory(user)
-          expect(user_file).to be_present
+          expect(users_file).to be_present
         end
       end
     end
 
     context "with an existing file" do
       before do
-        expect(user_file).to be_nil
+        expect(users_file).to be_nil
         ToFactory(user)
-        expect(user_file).to be_present
+        expect(users_file).to be_present
       end
 
       context "with a name for the factory" do
         it "appends to the file" do
-          user_file_includes('factory(:"to_factory/user"')
+          users_file_includes('factory(:"to_factory/user"')
           ToFactory(specific_user: user)
-          user_file_includes('factory(:specific_user, :parent => :"to_factory/user"')
+          users_file_includes('factory(:specific_user, :parent => :"to_factory/user"')
         end
       end
 

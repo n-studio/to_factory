@@ -76,7 +76,7 @@ describe ToFactory::Generation::Factory do
 
   describe "#ToFactory" do
     let(:expected) do
-      File.read "./spec/example_factories/user.rb"
+      File.read "./spec/example_factories/users.rb"
     end
 
     it do

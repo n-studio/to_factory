@@ -6,7 +6,7 @@ module ToFactory
 
     def write(definitions)
       definitions.each do |klass_name, representations|
-        write_to(klass_name) do
+        write_to(klass_name.pluralize) do
           wrap_factories(representations.map(&:definition))
         end
       end

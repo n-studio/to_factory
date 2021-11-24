@@ -1,20 +1,20 @@
 describe ToFactory do
   let!(:user) { create_user! }
 
-  def user_file
-    File.read("./tmp/factories/to_factory/user.rb")
+  def users_file
+    File.read("./tmp/factories/to_factory/users.rb")
   rescue
     nil
   end
 
-  let(:expected_user_file) { File.read "./spec/example_factories/user_with_header.rb" }
+  let(:expected_users_file) { File.read "./spec/example_factories/users_with_header.rb" }
 
   context "single call" do
     before do
       ToFactory()
     end
     it "renders a single factory correctly" do
-      expect(user_file).to match_sexp expected_user_file
+      expect(users_file).to match_sexp expected_users_file
     end
   end
 
@@ -25,7 +25,7 @@ describe ToFactory do
     end
 
     it "renders two factories correctly" do
-      expect(user_file).to eq <<-FACTORY.strip_heredoc
+      expect(users_file).to eq <<-FACTORY.strip_heredoc
         FactoryBot.define do
           factory(:"to_factory/user") do
             birthday { "2014-07-08T15:30 UTC" }
@@ -56,7 +56,7 @@ describe ToFactory do
     end
 
     it "renders multiple factories correctly" do
-      expect(user_file).to match_sexp <<-FACTORY
+      expect(users_file).to match_sexp <<-FACTORY
        FactoryBot.define do
          factory(:"to_factory/user") do
            birthday { "2014-07-08T15:30 UTC" }

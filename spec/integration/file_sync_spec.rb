@@ -2,20 +2,20 @@ describe "FileSync" do
   let(:user) { create_user! }
   let(:admin) { create_admin! }
   let(:project) { create_project! }
-  let(:expected_user_file)             { File.read("./spec/example_factories/user.rb") }
-  let(:expected_user_with_header_file) { File.read("./spec/example_factories/user_with_header.rb") }
-  let(:expected_admin_file)            { File.read("./spec/example_factories/admin.rb") }
-  let(:user_with_header)               { File.read("./spec/example_factories/user_with_header.rb") }
-  let(:user_admin_with_header)         { File.read("./spec/example_factories/user_admin_with_header.rb") }
+  let(:expected_users_file)             { File.read("./spec/example_factories/users.rb") }
+  let(:expected_users_with_header_file) { File.read("./spec/example_factories/users_with_header.rb") }
+  let(:expected_admin_file)            { File.read("./spec/example_factories/admins.rb") }
+  let(:users_with_header)               { File.read("./spec/example_factories/users_with_header.rb") }
+  let(:users_admin_with_header)         { File.read("./spec/example_factories/users_admin_with_header.rb") }
 
-  def user_file
-    File.read("./tmp/factories/to_factory/user.rb")
+  def users_file
+    File.read("./tmp/factories/to_factory/users.rb")
   rescue
     nil
   end
 
-  def project_file
-    File.read("./tmp/factories/to_factory/project.rb")
+  def projects_file
+    File.read("./tmp/factories/to_factory/projects.rb")
   rescue
     nil
   end
@@ -30,7 +30,7 @@ describe "FileSync" do
       sync = ToFactory::FileSync.new
       sync.perform
 
-      expect(user_file).to match_sexp expected_user_with_header_file
+      expect(users_file).to match_sexp expected_users_with_header_file
     end
   end
 
@@ -39,8 +39,8 @@ describe "FileSync" do
       sync = ToFactory::FileSync.new(user)
       sync.perform
 
-      expect(user_file).to match_sexp user_with_header
-      expect(project_file).to eq nil
+      expect(users_file).to match_sexp users_with_header
+      expect(projects_file).to eq nil
     end
   end
 
@@ -48,7 +48,7 @@ describe "FileSync" do
     let(:sync) { ToFactory::FileSync.new(user) }
     before do
       sync.perform
-      expect(user_file).to match_sexp user_with_header
+      expect(users_file).to match_sexp users_with_header
     end
 
     it "raises an error" do
@@ -60,13 +60,13 @@ describe "FileSync" do
         sync = ToFactory::FileSync.new(admin: admin)
         sync.perform
 
-        parser = ToFactory::Parsing::File.new(user_file)
+        parser = ToFactory::Parsing::File.new(users_file)
         result = parser.parse
         admin = result.find { |r| r.name == "admin" }
         user = result.find { |r| r.name == "to_factory/user" }
 
         expect(admin.definition).to match_sexp expected_admin_file
-        expect(user.definition).to match_sexp expected_user_file
+        expect(user.definition).to match_sexp expected_users_file
 
         expect(lambda do
           sync.perform

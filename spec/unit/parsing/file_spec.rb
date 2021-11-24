@@ -1,6 +1,6 @@
 describe ToFactory::Parsing::File do
-  let(:user_contents) { File.read "spec/example_factories/user.rb" }
-  let(:admin_contents) { File.read "spec/example_factories/admin.rb" }
+  let(:user_contents) { File.read "spec/example_factories/users.rb" }
+  let(:admin_contents) { File.read "spec/example_factories/admins.rb" }
 
   let(:parser) { ToFactory::Parsing::File.from_file(filename) }
 
@@ -30,10 +30,10 @@ describe ToFactory::Parsing::File do
     context "new syntax" do
       tests = # file,                      multiple, header
                 [
-                  ["user",                   false,   false],
-                  ["user_with_header",       false,   true],
-                  ["user_admin",             true,    false],
-                  ["user_admin_with_header", true,    true]
+                  ["users",                   false,   false],
+                  ["users_with_header",       false,   true],
+                  ["users_admin",             true,    false],
+                  ["users_admin_with_header", true,    true]
                 ]
 
       tests.each do |file, multiple, header|
@@ -51,7 +51,7 @@ describe ToFactory::Parsing::File do
 
   describe "#parse" do
     context "with multiple levels of parent classes" do
-      let(:filename) { "spec/example_factories/#{'user_admin_super_admin'}.rb" }
+      let(:filename) { "spec/example_factories/#{'users_admin_super_admin'}.rb" }
 
       it do
         result = parser.parse
@@ -61,7 +61,7 @@ describe ToFactory::Parsing::File do
     end
 
     context "file: user" do
-      let(:filename) { "spec/example_factories/#{'user'}.rb" }
+      let(:filename) { "spec/example_factories/#{'users'}.rb" }
 
       it do
         result = parser.parse
@@ -70,8 +70,8 @@ describe ToFactory::Parsing::File do
       end
     end
 
-    context "file: user_with_header" do
-      let(:filename) { "spec/example_factories/#{'user_with_header'}.rb" }
+    context "file: users_with_header" do
+      let(:filename) { "spec/example_factories/#{'users_with_header'}.rb" }
 
       it do
         result = parser.parse
@@ -81,7 +81,7 @@ describe ToFactory::Parsing::File do
     end
 
     context "file: user_admin" do
-      let(:filename) { "spec/example_factories/#{'user_admin'}.rb" }
+      let(:filename) { "spec/example_factories/#{'users_admin'}.rb" }
 
       it do
         result = parser.parse
@@ -93,8 +93,8 @@ describe ToFactory::Parsing::File do
       end
     end
 
-    context "file: user_admin_with_header" do
-      let(:filename) { "spec/example_factories/#{'user_admin_with_header'}.rb" }
+    context "file: users_admin_with_header" do
+      let(:filename) { "spec/example_factories/#{'users_admin_with_header'}.rb" }
 
       it do
         result = parser.parse

@@ -5,7 +5,7 @@ context "full integration" do
 
   it "#to_factory linting the output" do
     ToFactory(user)
-    load "./tmp/factories/to_factory/user.rb"
+    load "./tmp/factories/to_factory/users.rb"
     FactoryBot.lint
   end
 end
