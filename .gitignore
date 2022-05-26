@@ -10,3 +10,4 @@ tmp/*
 !tmp/.keep
 *.sqlite3
 /spec/dummy/spec/factories
+.byebug_history
